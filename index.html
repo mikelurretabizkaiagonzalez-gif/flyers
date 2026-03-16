@@ -6,6 +6,25 @@
   <title>Flyers — Aviation for Everyone</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
   <style>
+    .lang-switcher {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+.lang-btn:hover, .lang-btn.active {
+  background: rgba(255,255,255,0.2);
+  border-color: white;
+}
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --blue:#2563EB; --sky:#60A5FA; --dark:#1F2937; --light:#F0F9FF; --white:#ffffff; }
     html { scroll-behavior: smooth; }
@@ -288,6 +307,72 @@
     }
   </style>
 </head>
+  <script>
+const translations = {
+  en: {
+    nav_mission: "Mission", nav_app: "App", nav_impact: "Impact",
+    nav_team: "Team", nav_contact: "Contact",
+    hero_sub: "High School Project · 1st Year Bachillerato",
+    hero_tag: "Bringing aviation closer to the world —<br>knowledge, news and flights at your fingertips.",
+    hero_cta1: "Discover the App ✈", hero_cta2: "Our Mission",
+    stat1: "Flights per year in Europe", stat2: "People afraid of flying",
+    stat3: "Aviation safety rate", stat4: "App to change all that",
+    scroll: "Scroll"
+  },
+  es: {
+    nav_mission: "Misión", nav_app: "App", nav_impact: "Impacto",
+    nav_team: "Equipo", nav_contact: "Contacto",
+    hero_sub: "Proyecto de Bachillerato · 1º Bachillerato",
+    hero_tag: "Acercando la aviación al mundo —<br>conocimiento, noticias y vuelos al alcance de tu mano.",
+    hero_cta1: "Descubre la App ✈", hero_cta2: "Nuestra Misión",
+    stat1: "Vuelos al año en Europa", stat2: "Personas con miedo a volar",
+    stat3: "Tasa de seguridad aérea", stat4: "App para cambiarlo todo",
+    scroll: "Desplazar"
+  },
+  eu: {
+    nav_mission: "Misioa", nav_app: "App", nav_impact: "Eragina",
+    nav_team: "Taldea", nav_contact: "Kontaktua",
+    hero_sub: "Batxilergoko Proiektua · 1. Batxilergoa",
+    hero_tag: "Hegazkintza munduaren gertuago —<br>ezagutza, albisteak eta hegaldiak eskura.",
+    hero_cta1: "Aurkitu App-a ✈", hero_cta2: "Gure Misioa",
+    stat1: "Hegaldi urteko Europan", stat2: "Hegaldiari beldur duten pertsonak",
+    stat3: "Aire segurtasun tasa", stat4: "Dena aldatzeko App bat",
+    scroll: "Jaitsi"
+  },
+  fr: {
+    nav_mission: "Mission", nav_app: "App", nav_impact: "Impact",
+    nav_team: "Équipe", nav_contact: "Contact",
+    hero_sub: "Projet Lycée · 1ère année Bachillerato",
+    hero_tag: "Rapprocher l'aviation du monde —<br>connaissances, actualités et vols à portée de main.",
+    hero_cta1: "Découvrir l'App ✈", hero_cta2: "Notre Mission",
+    stat1: "Vols par an en Europe", stat2: "Personnes craignant de voler",
+    stat3: "Taux de sécurité aérienne", stat4: "Une app pour tout changer",
+    scroll: "Défiler"
+  }
+};
+
+function setLang(lang) {
+  const t = translations[lang];
+  if (!t) return;
+
+  // Nav links
+  const navLinks = document.querySelectorAll('nav a');
+  const navKeys = ['nav_mission', 'nav_app', 'nav_impact', 'nav_team', 'nav_contact'];
+  navLinks.forEach((el, i) => { if (navKeys[i]) el.textContent = t[navKeys[i]]; });
+
+  // Botones activos
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + lang)?.classList.add('active');
+
+  localStorage.setItem('flyers-lang', lang);
+}
+
+// Cargar idioma guardado al entrar
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('flyers-lang') || 'en';
+  setLang(saved);
+});
+</script>
 <body>
 
 <!-- NAV -->
@@ -300,6 +385,13 @@
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+<!-- Selector de idioma -->
+<div class="lang-switcher">
+  <button onclick="setLang('en')" class="lang-btn" id="btn-en">🇬🇧 EN</button>
+  <button onclick="setLang('es')" class="lang-btn" id="btn-es">🇪🇸 ES</button>
+  <button onclick="setLang('eu')" class="lang-btn" id="btn-eu">🏴 EU</button>
+  <button onclick="setLang('fr')" class="lang-btn" id="btn-fr">🇫🇷 FR</button>
+</div>
 </nav>
 
 <!-- HERO -->
@@ -548,9 +640,9 @@
     <h2>READY TO<br/><span>TAKE OFF</span></h2>
     <p>Follow us on social media, send us a message, or simply stay and explore<br/>the world of aviation with us.</p>
     <div class="contact-links">
-      <a href="https://instagram.com/aviation_flyers" target="_blank" class="contact-link">
+      <a href="https://instagram.com/aero_flyers" target="_blank" class="contact-link">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        @aviation_flyers
+        @aero_flyers
       </a>
       <a href="/cdn-cgi/l/email-protection#8fe9e3f6eafdfce0e9e6ece6eee3cfe8e2eee6e3a1ece0e2" class="contact-link">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
